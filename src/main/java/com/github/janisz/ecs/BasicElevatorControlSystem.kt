@@ -1,8 +1,8 @@
 package com.github.janisz.ecs
 
-import com.github.janisz.ecs.Direction.*
+import com.github.janisz.ecs.Direction.UP
 
-class BasicElevatorControlSystem(elevatorsCount: Int): ElevatorControlSystem {
+class BasicElevatorControlSystem(elevatorsCount: Int) : ElevatorControlSystem {
 
     private val elevators: Array<Elevator>
 
@@ -10,7 +10,7 @@ class BasicElevatorControlSystem(elevatorsCount: Int): ElevatorControlSystem {
         if (elevatorsCount < 1 || elevatorsCount > 16) {
             throw IllegalArgumentException("Invalid elevators count " + elevatorsCount)
         }
-        elevators = Array(elevatorsCount, {i -> Elevator(i, 0, UP) })
+        elevators = Array(elevatorsCount, { i -> Elevator(i, 0, UP) })
     }
 
     /**

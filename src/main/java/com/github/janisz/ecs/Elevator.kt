@@ -1,7 +1,7 @@
 package com.github.janisz.ecs
 
-import com.google.common.collect.Lists
-import java.util.*
+import java.util.Date
+
 
 data class Elevator(val id: Int, var currentFloor: Int, var currentDierection: Direction) {
 
@@ -9,7 +9,7 @@ data class Elevator(val id: Int, var currentFloor: Int, var currentDierection: D
      * Priority queue responsible for scheduling incoming floor requests
      * TODO: Change it to priority queue
      */
-    val queue: MutableList<FloorPickup> = Lists.newArrayList(FloorPickup(currentFloor, currentDierection))
+    val queue: MutableList<FloorPickup> = arrayListOf(FloorPickup(currentFloor, currentDierection))
 
     data class FloorPickup(val goalFloorNumber: Int, val direction: Direction, val timestamp: Date = Date())
     data class ElevatorStatus(val id: Int, val currentFloor: Int, val direction: Direction)
@@ -22,8 +22,8 @@ data class Elevator(val id: Int, var currentFloor: Int, var currentDierection: D
      * @return Number of steps required to get to specified [floor]
      */
     fun distance(floor: Int, direction: Direction): Int {
-//        TODO: Calculate steps using queue information and direction. Easiest solution is to copy queue, add floor to
-//        that copy and based on position in queue calculate how long does it take to get to specific floor.
+        //TODO: Calculate steps using queue information and direction. Easiest solution is to copy queue, add floor to
+        //that copy and based on position in queue calculate how long does it take to get to specific floor.
         return Math.abs(floor - currentFloor)
     }
 
@@ -31,7 +31,7 @@ data class Elevator(val id: Int, var currentFloor: Int, var currentDierection: D
      * Somebody just came into elevator and want to get to [goalFloorNumber]
      */
     fun update(goalFloorNumber: Int) {
-//        TODO: If Direction don't march picup request schedule it with least priority (it's not his turn)
+        //TODO: If Direction don't march picup request schedule it with least priority (it's not his turn)
         val direction = if (goalFloorNumber > currentFloor) {
             Direction.UP
         } else {
@@ -44,8 +44,8 @@ data class Elevator(val id: Int, var currentFloor: Int, var currentDierection: D
      * Somebody is waiting on [floor] and want to go specific [direction]
      */
     fun pickup(floor: Int, direction: Direction) {
-//        TODO: Schdule pickup with less priority than update (serve people inside first) but use  timestamp to monitor
-//        waiting time
+        //TODO: Schdule pickup with less priority than update (serve people inside first) but use  timestamp to monitor
+        //waiting time
         queue.add(FloorPickup(floor, direction))
     }
 

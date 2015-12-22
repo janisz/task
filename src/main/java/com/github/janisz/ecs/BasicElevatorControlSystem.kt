@@ -13,14 +13,24 @@ class BasicElevatorControlSystem(elevatorsCount: Int): ElevatorControlSystem {
         elevators = Array(elevatorsCount, {i -> Elevator(i, 0, UP) })
     }
 
-    override fun status(): List<Elevator> {
-        return elevators.toArrayList();
+    /**
+     * @return all elevators
+     */
+    override fun status(): List<Elevator.ElevatorStatus> {
+        return elevators.map { e -> e.status() }
     }
 
-    override fun update(elevatorId: Int, to: Int) {
-        elevators[elevatorId].update(to)
+    /**
+     * Somebody just came into elevator #[elevatorId] and want to go to [goalFloorNumber]
+     */
+    override fun update(elevatorId: Int, goalFloorNumber: Int) {
+        elevators[elevatorId].update(goalFloorNumber)
     }
 
+    /**
+     * Schedule nearest elevator (in terms of steps) to pickup people from given [floor] and
+     * lift them with specific [direction].
+     */
     override fun pickup(floor: Int, direction: Direction) {
         val nearestElevator = elevators.minBy { elevator -> elevator.distance(floor, direction) }
         nearestElevator?.pickup(floor, direction)

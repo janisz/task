@@ -1,5 +1,11 @@
 # Elevator
 
+## Run
+
+To build project you should have JDK 8 then just run `./gradlew build` to run tests and get binary jar.
+
+## Task
+
 Design and implement an elevator control system. What data structures, interfaces and algorithms will you need?
 Your elevator control system should be able to handle a few elevators — up to 16.
 
@@ -45,3 +51,15 @@ as well as a README discussing your solution (and providing build instructions).
 The accompanying documentation is an important part of your submission. It counts to show your work.
 
 Good luck!
+
+
+## Solution
+
+I tried to solve this assignment with following idea: Let all elevators keep track of their passengers and pickup requests.
+Global controller is responsible only for finding elevator that could first serve people in the moment they press UP/DOWN
+button. Each elevator has it's own priority queue witch is responsible for optimally schedule visiting floors and also
+give a priority to people that are already inside (unless they click DOWN button but then want to go UP) and with less
+priority people waiting for lift.
+Probably better approach could be to store global registry of pickups than move it locally to elevator, because when user
+get inside he decide where to go which could increase waiting time, but is also harder to implement.
+
